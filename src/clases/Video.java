@@ -9,5 +9,5 @@ public class Video {
     String titulo_vid;
     String calidad_vid;
     String contenido;
-    Video video;
+    // MediaPlayer video;
 }
