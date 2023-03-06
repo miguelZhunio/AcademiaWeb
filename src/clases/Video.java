@@ -1,5 +1,7 @@
 package clases;
 
+import java.io.File;
+
 /**
  *
  * @author Zhunio Miguel
@@ -9,5 +11,10 @@ public class Video {
     String titulo_vid;
     String calidad_vid;
     String contenido;
-    // MediaPlayer video;
+    File video;
+    
+    
+    
+    
+    
 }
