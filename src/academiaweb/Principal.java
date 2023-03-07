@@ -50,7 +50,7 @@ public class Principal extends javax.swing.JFrame {
                 Reg_GerActionPerformed(evt);
             }
         });
-        jPanel1.add(Reg_Ger, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 140, 60));
+        jPanel1.add(Reg_Ger, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 140, 60));
 
         Reg_Prof.setText("Registro Profesor");
         Reg_Prof.addActionListener(new java.awt.event.ActionListener() {
@@ -58,7 +58,7 @@ public class Principal extends javax.swing.JFrame {
                 Reg_ProfActionPerformed(evt);
             }
         });
-        jPanel1.add(Reg_Prof, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 140, 60));
+        jPanel1.add(Reg_Prof, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 140, 60));
 
         jButton1.setText("Estudiante ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,7 +66,7 @@ public class Principal extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 140, 60));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 140, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
