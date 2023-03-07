@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 
 /**
@@ -35,16 +36,6 @@ public class Registro {
             error = true;
         }
  
-        
-        if (!(nombre.matches("[a-zA-Z]{5,60}"))) {
-            messageError.add("NOMBRE NO VALIDO");
-            error = true;
-        } 
-        
-        if (!(apellido.matches("[a-zA-Z]{10,60}"))) {
-            messageError.add("APELLIDO NO VALIDO");
-            error = true;
-        }
         
         ObjectSet consultaPais = AcademiaWeb.Base.get(new Pais(pais, null, 0, 0));
             
@@ -171,8 +162,15 @@ public class Registro {
         Pais paisObj = (Pais) consultaPais.next();
         pais = paisObj.getCodigo_pais();
         
-        
+        if (error) {
+            JOptionPane.showMessageDialog(null, messageError.get(0));
+            messageError.clear();
+        } else {
+            AcademiaWeb.Base.set(new Gerente(tipo, id_tra, titulo_tra, fecha_tra, sueldo_tra, cedula, nombre_per, apellido_per, pais, correo_per, password_per));
+        }
         
         return error;
     }
+
+
 }

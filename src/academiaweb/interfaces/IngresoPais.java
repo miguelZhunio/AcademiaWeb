@@ -4,18 +4,60 @@
  */
 package academiaweb.interfaces;
 
+import clases.Estudiante;
+import clases.Pais;
+import com.db4o.ObjectSet;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import validaciones.AcademiaWeb;
+
 /**
  *
  * @author vaioz
  */
 public class IngresoPais extends javax.swing.JFrame {
 
+    DefaultTableModel dtmPersonas = new DefaultTableModel();
+
     /**
      * Creates new form Administrador
      */
     public IngresoPais() {
         initComponents();
+        setModelo();
     }
+    private void setModelo() {
+       String[] cabeceraTable = {"CODIGO", "NOMBRE", "POBLACIO", "# ESTADOS"};
+       dtmPersonas.setColumnIdentifiers(cabeceraTable);       
+       jTable1.setModel(dtmPersonas);
+    }
+    private void setDatos() {
+         Object[] datos = new Object[dtmPersonas.getColumnCount()];
+         
+         for (int j = 0; dtmPersonas.getRowCount() > j; j++) {
+             dtmPersonas.removeRow(0);
+         }
+         int i = 0;
+         dtmPersonas.setRowCount(0);
+         ArrayList<Pais> listadoPaises = new ArrayList<>();
+         Pais in;
+         ObjectSet consultaPais = AcademiaWeb.Base.get(new Pais(null, null, 0 ,0));
+         for (int j = 0; j < consultaPais.size(); j++) {
+            in = (Pais) consultaPais.get(j);
+            listadoPaises.add(in);
+            in = new Pais();
+        }
+         for (Pais pais: listadoPaises) {
+             datos[0] = pais.getCodigo_pais();
+             datos[1] = pais.getNombre_pais();
+             datos[2] = pais.getNumero_hab();
+             datos[3] = pais.getNum_est();
+             dtmPersonas.addRow(datos);
+             i++;
+         }
+         jTable1.setModel(dtmPersonas);
+         
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,13 +124,13 @@ public class IngresoPais extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Codigo", "Nombre", "# Poblacion", "# Estados"
+
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -224,11 +266,24 @@ public class IngresoPais extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEstadosActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        String codigo = txtCodigo.getText();
+        String nombre = txtNombre.getText();
+        int numHab = Integer.parseInt(txtPoblacion.getText());
+        int estados = Integer.parseInt(txtEstados.getText());
+        
+        ObjectSet consultaPais = AcademiaWeb.Base.get(new Pais(codigo, nombre, 0 ,0));
+        if (consultaPais.isEmpty()) {
+            AcademiaWeb.Base.set(new Pais(codigo, nombre, numHab, estados));
+            setDatos();
+        } else {
+            System.out.println("YA EXISTE ESE PAIS");
+        }
+            
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed

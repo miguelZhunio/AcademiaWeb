@@ -4,18 +4,34 @@
  */
 package academiaweb.interfaces;
 
+import clases.Especialidad;
+import clases.Titulo;
+import com.db4o.ObjectSet;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import validaciones.AcademiaWeb;
+
 /**
  *
  * @author vaioz
  */
 public class IngresoEspecialidad extends javax.swing.JFrame {
+    
+    DefaultTableModel dtmPersonas = new DefaultTableModel();
 
     /**
      * Creates new form IngresoEspecialidad
      */
     public IngresoEspecialidad() {
+        
         initComponents();
+        jTable1.setModel(dtmPersonas);
     }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -196,7 +212,41 @@ public class IngresoEspecialidad extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificar1ActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        String codigo = txtCodigo.getText();
+        String nombre = txtNombre.getText();
+        
+        ObjectSet consultaEspecialidad = AcademiaWeb.Base.get(new Especialidad(codigo, nombre));
+        if (consultaEspecialidad.isEmpty()) {
+            Especialidad especialidad;
+            
+            AcademiaWeb.Base.set(new Especialidad(codigo, nombre));
+            
+            JOptionPane.showMessageDialog(null, "ESPECIALIDAD INGRESADA CORRECTAMENTE");
+            consultaEspecialidad = AcademiaWeb.Base.get(new Especialidad(null, null));
+            
+            ArrayList<Especialidad> especialidades = (ArrayList<Especialidad>) consultaEspecialidad;
+            
+            Object[] datos = new Object[dtmPersonas.getColumnCount()];
+         
+            for (int j = 0; dtmPersonas.getRowCount() > j; j++) {
+                dtmPersonas.removeRow(0);
+            }
+            int i = 0;
+            dtmPersonas.setRowCount(0);
+            for (Especialidad espec: especialidades) {
+             datos[0] = espec.getCodigo_esp();
+             datos[1] = espec.getNombre_esp();    
+             dtmPersonas.addRow(datos);
+             i++;
+         }
+            
+            jTable1.setModel(dtmPersonas);
+         
+
+        } else {
+            JOptionPane.showMessageDialog(null, "ESPECIALIDAD YA INGRESADA");
+        }
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
