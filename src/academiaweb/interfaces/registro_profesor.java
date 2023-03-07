@@ -41,20 +41,20 @@ public class registro_profesor extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        pfContraseña = new javax.swing.JPasswordField();
+        txtCodEsp = new javax.swing.JTextField();
+        txtNomEsp = new javax.swing.JTextField();
+        txtConCedula = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        cbPais = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,7 +80,7 @@ public class registro_profesor extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 230, 110, 50));
 
         jButton2.setText("CONSULTAR");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(751, 100, 110, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(751, 90, 110, 50));
 
         jButton3.setText("MODIFICAR");
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 160, 110, 50));
@@ -111,16 +111,49 @@ public class registro_profesor extends javax.swing.JFrame {
 
         jLabel7.setText("ID:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, -1, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 140, -1));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 140, -1));
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 140, -1));
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                txtCedulaActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, 160, -1));
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 140, -1));
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 140, -1));
+
+        txtApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoActionPerformed(evt);
+            }
+        });
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 140, -1));
+
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorreoActionPerformed(evt);
+            }
+        });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, 160, -1));
 
         jLabel8.setText("Correo:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, -1, -1));
@@ -130,15 +163,46 @@ public class registro_profesor extends javax.swing.JFrame {
 
         jLabel10.setText("Nombre Especialidad:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, -1, -1));
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 160, -1));
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 140, -1));
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 140, -1));
-        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, 130, -1));
-        jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, 130, -1));
-        jPanel1.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 110, 120, -1));
+
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 160, -1));
+        jPanel1.add(pfContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 140, -1));
+
+        txtCodEsp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodEspKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtCodEsp, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, 130, -1));
+
+        txtNomEsp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomEspActionPerformed(evt);
+            }
+        });
+        txtNomEsp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomEspKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtNomEsp, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, 130, -1));
+
+        txtConCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtConCedulaKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtConCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 110, 120, -1));
 
         jLabel11.setText("Cedula:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 110, -1, -1));
+
+        cbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ecuador", "Colombia", "Venezuela", "Peru" }));
+        jPanel1.add(cbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,15 +221,149 @@ public class registro_profesor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtCorreoActionPerformed
+
+    private void txtNomEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomEspActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomEspActionPerformed
+
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaActionPerformed
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        // TODO add your handling code here:
+        char aux = evt.getKeyChar();
+        boolean numeros = aux >= '0' && aux <= '9';
+        if (!numeros) {
+            System.out.println("Ingreso erroneo: " + evt.getKeyChar());
+            evt.consume();
+        } else if (txtCedula.getText().length() >= 10) { // Agregar esta condición
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        // TODO add your handling code here:
+        char aux = evt.getKeyChar();
+        String texto = txtNombre.getText();
+
+        if (!Character.isLetter(aux) || texto.length() >= 20) {
+            evt.consume(); // Ignorar caracteres que no sean letras o que excedan la longitud permitida
+        } else if (texto.length() == 0 && !Character.isUpperCase(aux)) {
+            evt.consume(); // Si el primer carácter no es mayúscula, ignorar
+        } else if (texto.length() > 0 && !Character.isLowerCase(aux)) {
+            evt.consume(); // Si no es el primer carácter y no es minúscula, ignorar
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        // TODO add your handling code here:
+        char aux = evt.getKeyChar();
+        String texto = txtApellido.getText();
+
+        if (!Character.isLetter(aux) || texto.length() >= 20) {
+            evt.consume(); // Ignorar caracteres que no sean letras o que excedan la longitud permitida
+        } else if (texto.length() == 0 && !Character.isUpperCase(aux)) {
+            evt.consume(); // Si el primer carácter no es mayúscula, ignorar
+        } else if (texto.length() > 0 && !Character.isLowerCase(aux)) {
+            evt.consume(); // Si no es el primer carácter y no es minúscula, ignorar
+        }
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+        // TODO add your handling code here:
+        char aux = evt.getKeyChar();
+        String texto = txtCorreo.getText();
+
+        if (texto.length() >= 25) {
+            evt.consume(); // Ignorar caracteres que excedan la longitud permitida
+        } else if (texto.length() == 0 && !Character.isLowerCase(aux)) {
+            evt.consume(); // Si el primer carácter no es minúscula, ignorar
+        } else if (texto.length() > 0 && aux == '@') {
+            evt.consume(); // Si ya se ingresó el carácter '@', ignorar cualquier otro carácter '@'
+        } else if (texto.length() > 0 && texto.charAt(texto.length() - 1) == '@' && !Character.isLetter(aux)) {
+            evt.consume(); // Si el último carácter ingresado es '@', ignorar cualquier carácter que no sea una letra
+        } else if (texto.length() > 0 && texto.contains("@") && texto.indexOf("@") == texto.length() - 4 && aux != '.') {
+            evt.consume(); // Si se han ingresado los caracteres '@' y los últimos 3 caracteres son letras, ignorar cualquier carácter que no sea un punto
+        } else if (texto.length() > 0 && texto.contains("@") && texto.indexOf("@") < texto.length() - 4 && !Character.isLetter(aux) && !Character.isDigit(aux) && aux != '.') {
+            evt.consume(); // Si se han ingresado los caracteres '@' y hay letras/dígitos después del carácter '@', ignorar cualquier carácter que no sea una letra, un dígito o un punto
+        }
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoActionPerformed
+
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+        // TODO add your handling code here:
+        char aux = evt.getKeyChar();
+        String texto = txtId.getText();
+
+        if (texto.length() >= 6) {
+            evt.consume(); // Ignorar caracteres que excedan la longitud permitida
+        } else if (texto.length() < 3 && !Character.isDigit(aux)) {
+            evt.consume(); // Si el carácter no es un dígito y aún no se han ingresado 3 caracteres, ignorar
+        } else if (texto.length() == 3 && aux != '-') {
+            evt.consume(); // Si se han ingresado los primeros 3 caracteres y el cuarto no es un guión, ignorar
+        } else if (texto.length() > 3 && !Character.isLetter(aux)) {
+            evt.consume(); // Si se han ingresado más de 3 caracteres y no son letras, ignorar
+        }
+    }//GEN-LAST:event_txtIdKeyTyped
+
+    private void txtCodEspKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodEspKeyTyped
+        // TODO add your handling code here:
+        char aux = evt.getKeyChar();
+        String texto = txtCodEsp.getText();
+
+        if (texto.length() >= 7) {
+            evt.consume(); // Ignorar caracteres que excedan la longitud permitida
+        } else if ((texto.length() == 0 || texto.length() == 4) && !Character.isUpperCase(aux)) {
+            evt.consume(); // Si el primer o quinto carácter no es mayúscula, ignorar
+        } else if ((texto.length() >= 1 && texto.length() <= 3) && !Character.isLetter(aux)) {
+            evt.consume(); // Si no es un carácter de letra, ignorar
+        } else if ((texto.length() >= 5 && texto.length() <= 6) && !Character.isDigit(aux)) {
+            evt.consume(); // Si no es un carácter numérico, ignorar
+        } else if (texto.length() == 3 && aux != '-') {
+            evt.consume(); // El cuarto carácter debe ser un guion "-"
+        }
+    }//GEN-LAST:event_txtCodEspKeyTyped
+
+    private void txtNomEspKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomEspKeyTyped
+        // TODO add your handling code here:
+        char aux = evt.getKeyChar();
+        String texto = txtNomEsp.getText();
+
+        if (!Character.isLetter(aux) || texto.length() >= 20) {
+            evt.consume(); // Ignorar caracteres que no sean letras o que excedan la longitud permitida
+        } else if (texto.length() == 0 && !Character.isUpperCase(aux)) {
+            evt.consume(); // Si el primer carácter no es mayúscula, ignorar
+        } else if (texto.length() > 0 && !Character.isLowerCase(aux)) {
+            evt.consume(); // Si no es el primer carácter y no es minúscula, ignorar
+        }
+    }//GEN-LAST:event_txtNomEspKeyTyped
+
+    private void txtConCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConCedulaKeyTyped
+        // TODO add your handling code here:
+        char aux = evt.getKeyChar();
+        boolean numeros = aux >= '0' && aux <= '9';
+        if (!numeros) {
+            System.out.println("Ingreso erroneo: " + evt.getKeyChar());
+            evt.consume();
+        } else if (txtConCedula.getText().length() >= 10) { // Agregar esta condición
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txtConCedulaKeyTyped
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbPais;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -183,17 +381,16 @@ public class registro_profesor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JPasswordField pfContraseña;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtCodEsp;
+    private javax.swing.JTextField txtConCedula;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNomEsp;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
