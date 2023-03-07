@@ -26,9 +26,9 @@ public class Registro {
     
     public static boolean Estudiante(String cedula, String nombre, String apellido, String pais, String correo, String password, String fecha_inscripcion, String nivel) {
         
-        ObjectSet consultaCedulaEst = AcademiaWeb.Base.get(new Estudiante(cedula, null, null, null, null, null, null ,null));
+        ObjectSet consultaCedulaEst = AcademiaWeb.Base.get(new Estudiante(null, null, cedula, null, null, null, null ,null));
         ObjectSet consultaCedulaPro = AcademiaWeb.Base.get(new Profesor(null, null, null, null, null, 0,cedula, null, null, null, null, null));
-        ObjectSet consultaCedulaGer = AcademiaWeb.Base.get(new Gerente());
+        ObjectSet consultaCedulaGer = AcademiaWeb.Base.get(new Gerente(null, null, null, null, 0, cedula, null, null, null, null, null));
         
         if (!(consultaCedulaEst.isEmpty() && consultaCedulaPro.isEmpty() && consultaCedulaGer.isEmpty())) {
             messageError.add("YA EXISTE LA CEDULA");
@@ -88,59 +88,90 @@ public class Registro {
         
         ObjectSet consultaCedulaEst = AcademiaWeb.Base.get(new Estudiante(null, null, cedula, null, null, null, null ,null));
         ObjectSet consultaCedulaPro = AcademiaWeb.Base.get(new Profesor(null, null, null, null, null, 0,cedula, null, null, null, null, null));
-        ObjectSet consultaCedulaGer = AcademiaWeb.Base.get(new Gerente());
+        ObjectSet consultaCedulaGer = AcademiaWeb.Base.get(new Gerente(null, null, null, null, 0, cedula, null, null, null, null, null));
         
         if (!(consultaCedulaEst.isEmpty() && consultaCedulaPro.isEmpty() && consultaCedulaGer.isEmpty())) {
             messageError.add("YA EXISTE LA CEDULA");
             error = true;
         }
         
-        if (!(nombre.matches("[a-zA-Z]{5,60}"))) {
-            messageError.add("NOMBRE NO VALIDO");
-            error = true;
-        } 
-        
-        if (!(apellido.matches("[a-zA-Z]{10,60}"))) {
-            messageError.add("APELLIDO NO VALIDO");
-            error = true;
-        }
-        
         ObjectSet consultaPais = AcademiaWeb.Base.get(new Pais(pais, null, 0, 0));
-            
-        if (!(consultaPais.isEmpty())) {
-            messageError.add("NO EXISTE ESE PAIS");
-            error = true;
-        }
+        Pais paisObj = (Pais) consultaPais.next();
+        pais = paisObj.getCodigo_pais();
         
-        if (!(correo.matches("[a-zA-Z0-9]{10,80}"))) {
-            messageError.add("CORREO NO VALIDO");
-            error = true;
-        }
+
+        ObjectSet consultaTitulo = AcademiaWeb.Base.get(new Titulo(null, titulo_tra));
+        Titulo titulo = (Titulo) consultaTitulo.next();
+        titulo_tra = titulo.getCod_titulo();
+
         
         Date fecha = formatoFecha.parse(fecha_cobro);
         Crear.Fecha(fecha);
         
         ObjectSet consultaIdPro = AcademiaWeb.Base.get(new Profesor(null, null, id_tra, null, null, 0,null, null, null, null, null, null));
-        ObjectSet consultaIdGer = AcademiaWeb.Base.get(new Gerente());
+        ObjectSet consultaIdGer = AcademiaWeb.Base.get(new Gerente(null, id_tra, null, null, 0, null, null, null, null, null, null));
         
         if (!(consultaIdPro.isEmpty() && consultaIdGer.isEmpty())) {
             messageError.add("YA EXISTE LA ID DE TRABAJADOR ");
             error = true;
         }
         
-        ObjectSet buscarEspecialidad = AcademiaWeb.Base.get(new Gerente());
-        if (!(buscarEspecialidad.isEmpty())) {
-            
+        ObjectSet buscarGerente = AcademiaWeb.Base.get(new Gerente(null, id_tra, null, null, 0, null, null, null, null, null, null));
+        if (buscarGerente.isEmpty()) {
+            messageError.add("NO EXISTE EL GERENTE");
+            error = true;
         }
         
+        ObjectSet buscarEspecialidad = AcademiaWeb.Base.get(new Especialidad(null, especialidad));
+        if (!(buscarEspecialidad.isEmpty())) {
+            messageError.add("NO EXISTE EL GERENTE");
+            error = true;
+        } else {
+            Especialidad espe = (Especialidad) buscarEspecialidad.next();
+            especialidad = espe.getCodigo_esp();
+        }
+      
         if (error) {
             JOptionPane.showMessageDialog(null, messageError.get(0));
             messageError.clear();
         } else {
             AcademiaWeb.Base.set(new Profesor(especialidad, id_gerente, id_tra, titulo_tra, fecha_cobro, sueldo, cedula, nombre, apellido, pais, correo, password));
         }
+                
+        return error;
+    }
+    
+    public static boolean Gerentes(String tipo, String id_tra, String titulo_tra, String fecha_tra, double sueldo_tra, String cedula, String nombre_per, String apellido_per, String pais, String correo_per, String password_per) throws ParseException {
         
-        Profesor profe;
+        ObjectSet consultaIdPro = AcademiaWeb.Base.get(new Profesor(null, null, id_tra, null, null, 0,null, null, null, null, null, null));
+        ObjectSet consultaIdGer = AcademiaWeb.Base.get(new Gerente(null, id_tra, null, null, 0, null, null, null, null, null, null));
+        
+        if (!(consultaIdPro.isEmpty() && consultaIdGer.isEmpty())) {
+            messageError.add("YA EXISTE LA ID DE TRABAJADOR ");
+            error = true;
+        }
+        
+        ObjectSet consultaTitulo = AcademiaWeb.Base.get(new Titulo(null, titulo_tra));
+        Titulo titulo = (Titulo) consultaTitulo.next();
+        titulo_tra = titulo.getCod_titulo();
+        
+        Date fecha = formatoFecha.parse(fecha_tra);
+        Crear.Fecha(fecha);
+
+        ObjectSet consultaCedulaEst = AcademiaWeb.Base.get(new Estudiante(null, null, cedula, null, null, null, null ,null));
+        ObjectSet consultaCedulaPro = AcademiaWeb.Base.get(new Profesor(null, null, null, null, null, 0,cedula, null, null, null, null, null));
+        ObjectSet consultaCedulaGer = AcademiaWeb.Base.get(new Gerente(null, null, null, null, 0, cedula, null, null, null, null, null));
+        
+        if (!(consultaCedulaEst.isEmpty() && consultaCedulaPro.isEmpty() && consultaCedulaGer.isEmpty())) {
+            messageError.add("YA EXISTE LA CEDULA");
+            error = true;
+        }
+        
+        ObjectSet consultaPais = AcademiaWeb.Base.get(new Pais(pais, null, 0, 0));
+        Pais paisObj = (Pais) consultaPais.next();
+        pais = paisObj.getCodigo_pais();
+        
+        
         
         return error;
     }
