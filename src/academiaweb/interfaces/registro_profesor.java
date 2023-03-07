@@ -4,17 +4,33 @@
  */
 package academiaweb.interfaces;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author IV
  */
 public class registro_profesor extends javax.swing.JFrame {
 
+    DefaultTableModel modelo;
+
     /**
      * Creates new form registro_profesor
      */
     public registro_profesor() {
+        
         initComponents();
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Pais");
+        modelo.addColumn("Correo");
+        modelo.addColumn("ID");
+        modelo.addColumn("Cod Especialidad");
+        modelo.addColumn("Nombre Especialidad");
+        this.tblRegistroProfesor.setModel(modelo);
     }
 
     /**
@@ -32,13 +48,13 @@ public class registro_profesor extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnConsultar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblRegistroProfesor = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
@@ -76,35 +92,55 @@ public class registro_profesor extends javax.swing.JFrame {
         jLabel5.setText("Pais:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, -1, -1));
 
-        jButton1.setText("ELIMINAR");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 230, 110, 50));
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 230, 110, 50));
 
-        jButton2.setText("CONSULTAR");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(751, 90, 110, 50));
+        btnConsultar.setText("CONSULTAR");
+        jPanel1.add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(751, 90, 110, 50));
 
-        jButton3.setText("MODIFICAR");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 160, 110, 50));
+        btnModificar.setText("MODIFICAR");
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 160, 110, 50));
 
-        jButton4.setText("CREAR");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 300, 110, 40));
+        btnCrear.setText("CREAR");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 300, 110, 40));
 
         jButton5.setText("REGRESAR");
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblRegistroProfesor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5l", "Title 6", "Title 7", "Title 8"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, true
+            };
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 830, 140));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblRegistroProfesor);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, 880, 120));
 
         jLabel6.setText("Password:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, -1, -1));
@@ -209,8 +245,7 @@ public class registro_profesor extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1073, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -355,19 +390,51 @@ public class registro_profesor extends javax.swing.JFrame {
         } else if (txtConCedula.getText().length() >= 10) { // Agregar esta condición
             evt.consume();
         }
-        
+
     }//GEN-LAST:event_txtConCedulaKeyTyped
+
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        // TODO add your handling code here:
+        String[] info = new String[8];
+        info[0] = txtCedula.getText();
+        info[1] = txtNombre.getText();
+        info[2] = txtApellido.getText();
+        info[3] = cbPais.getSelectedItem().toString();
+        info[4] = txtCorreo.getText();
+        info[5] = txtId.getText();
+        info[6] = txtCodEsp.getText();
+        info[7] = txtNomEsp.getText();
+        modelo.addRow(info);
+        txtCedula.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        cbPais.setSelectedItem(null);
+        txtCorreo.setText("");
+        txtId.setText("");
+        txtCodEsp.setText("");
+        txtNomEsp.setText("");
+    }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        int fila = tblRegistroProfesor.getSelectedRow();
+        if (fila >= 0) {
+            modelo.removeRow(fila);
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccionar Fila");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JComboBox<String> cbPais;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -382,8 +449,8 @@ public class registro_profesor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPasswordField pfContraseña;
+    private javax.swing.JTable tblRegistroProfesor;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCodEsp;
