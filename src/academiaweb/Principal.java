@@ -4,6 +4,7 @@
  */
 package academiaweb;
 
+import academiaweb.interfaces.Registro_Gerente;
 import academiaweb.interfaces.registro_profesor;
 
 /**
@@ -30,7 +31,8 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Reg_Ger = new javax.swing.JButton();
+        Reg_Prof = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,13 +42,21 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("ACADEMIA WEB");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 170, -1));
 
-        jButton1.setText("Registro Profesor");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Reg_Ger.setText("Registro Gerente");
+        Reg_Ger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Reg_GerActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, -1, -1));
+        jPanel1.add(Reg_Ger, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 140, 60));
+
+        Reg_Prof.setText("Registro Profesor");
+        Reg_Prof.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Reg_ProfActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Reg_Prof, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 140, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,12 +74,20 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void Reg_GerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reg_GerActionPerformed
+        // TODO add your handlig code here:
+        this.dispose();
+        Registro_Gerente ger=new Registro_Gerente();
+        ger.setVisible(true);
+        
+    }//GEN-LAST:event_Reg_GerActionPerformed
+
+    private void Reg_ProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reg_ProfActionPerformed
         // TODO add your handling code here:
         this.dispose();
         registro_profesor rp=new registro_profesor();
         rp.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_Reg_ProfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -107,7 +125,8 @@ public class Principal extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Reg_Ger;
+    private javax.swing.JButton Reg_Prof;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
