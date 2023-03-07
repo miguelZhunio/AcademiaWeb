@@ -11,12 +11,7 @@ import java.util.Date;
 public class AcademiaWeb {
 
    
-    public static ObjectContainer Base = Db4o.openFile("//home//vaioz//NetBeansProjects//AcademiaWeb.yap");
-    
-    public static void main(String args[]) {
-        Crear.Fecha(new Date());
-    }
-        
+    public static ObjectContainer Base = Db4o.openFile("//home//vaioz//NetBeansProjects//AcademiaWeb.yap");  
         
     
 }
