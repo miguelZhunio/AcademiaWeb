@@ -9,27 +9,24 @@ public class Trabajador extends Persona{
     private String titulo_tra;
     private String fecha_tra;
     private double sueldo_tra;
-    private String cedula_tra;
 
     public Trabajador() {
         super();
     }
 
-    public Trabajador(String id_trabajador, String titulo_tra, String fecha_tra, double sueldo_tra, String cedula_tra) {
+    public Trabajador(String id_trabajador, String titulo_tra, String fecha_tra, double sueldo_tra) {
         this.id_trabajador = id_trabajador;
         this.titulo_tra = titulo_tra;
         this.fecha_tra = fecha_tra;
         this.sueldo_tra = sueldo_tra;
-        this.cedula_tra = cedula_tra;
     }
 
-    public Trabajador(String id_trabajador, String titulo_tra, String fecha_tra, double sueldo_tra, String cedula_tra, String cedula_per, String nombre_per, String apellido_per, String codigo_pais, String correo_per, String password_per) {
+    public Trabajador(String id_trabajador, String titulo_tra, String fecha_tra, double sueldo_tra, String cedula_per, String nombre_per, String apellido_per, String codigo_pais, String correo_per, String password_per) {
         super(cedula_per, nombre_per, apellido_per, codigo_pais, correo_per, password_per);
         this.id_trabajador = id_trabajador;
         this.titulo_tra = titulo_tra;
         this.fecha_tra = fecha_tra;
         this.sueldo_tra = sueldo_tra;
-        this.cedula_tra = cedula_tra;
     }
     /**
      * @return the id_trabajador
@@ -87,19 +84,7 @@ public class Trabajador extends Persona{
         this.sueldo_tra = sueldo_tra;
     }
 
-    /**
-     * @return the cedula_tra
-     */
-    public String getCedula_tra() {
-        return cedula_tra;
-    }
-
-    /**
-     * @param cedula_tra the cedula_tra to set
-     */
-    public void setCedula_tra(String cedula_tra) {
-        this.cedula_tra = cedula_tra;
-    }
+ 
     
     
 }
