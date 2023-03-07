@@ -107,5 +107,10 @@ public class Persona {
     public void setPassword_per(String password_per) {
         this.password_per = password_per;
     }
+
+    @Override
+    public String toString() {
+        return "Persona{" + "cedula_per=" + cedula_per + ", nombre_per=" + nombre_per + ", apellido_per=" + apellido_per + ", codigo_pais=" + codigo_pais + ", correo_per=" + correo_per + ", password_per=" + password_per + '}';
+    }
     
 }

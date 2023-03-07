@@ -6,20 +6,70 @@
 package academiaweb.interfaces;
 
 import academiaweb.Principal;
+import clases.Estudiante;
+import clases.Gerente;
+import clases.Pais;
+import clases.Profesor;
+import com.db4o.ObjectSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import validaciones.AcademiaWeb;
+import static validaciones.Registro.error;
+import static validaciones.Registro.messageError;
 
 /**
  *
  * @author Usuario
  */
 public class Registro_Gerente extends javax.swing.JFrame {
+    DefaultTableModel regGe=new DefaultTableModel();
 
     /**
      * Creates new form Registro_Gerente
      */
+    
     public Registro_Gerente() {
         initComponents();
+        this.setLocationRelativeTo(null);   
     }
+    private void setModelo() {
+       String[] cabeceraTable = {"Nombre", "Apellido", "Cedula", "Pais", "CORREO" ,"Titulo","Gerencia"};
+       regGe.setColumnIdentifiers(cabeceraTable);       
+       jTable1.setModel(regGe);
+    }
+     private void setDatos() {
+         Object[] datos = new Object[regGe.getColumnCount()];
+         
+         for (int j = 0; regGe.getRowCount() > j; j++) {
+             regGe.removeRow(0);
+         }
+         int i = 0;
+         regGe.setRowCount(0);
+         ArrayList<Gerente> geren = new ArrayList<>();
+         Gerente in;
+         ObjectSet consultaCedulaGer = AcademiaWeb.Base.get(new Gerente(null, null, null, null, 0, null, null, null, null, null, null));
+         for (int j = 0; j < consultaCedulaGer.size(); j++) {
+            in = (Gerente) consultaCedulaGer.get(j);
+            geren.add(in);
+            in = new Gerente();
+        }
+         for (Gerente aux: geren) {
+             datos[0] = aux.getNombre_per();
+             datos[1] = aux.getApellido_per();
+             datos[2] = aux.getApellido_per();
+             datos[3] = aux.getCedula_per();
+             datos[4] = aux.getCorreo_per();
+             datos[5] = aux.getTitulo_tra();
+             datos[6] =aux.getTipo();
+             regGe.addRow(datos);
+             i++;
+         }
+         jTable1.setModel(regGe);
+         
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,17 +94,17 @@ public class Registro_Gerente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         Guar = new javax.swing.JButton();
-        modif = new javax.swing.JButton();
+        Sla = new javax.swing.JButton();
         elim = new javax.swing.JButton();
         busc = new javax.swing.JButton();
-        Sla = new javax.swing.JButton();
         jTextNom = new javax.swing.JTextField();
         jTextApell = new javax.swing.JTextField();
         jTextCed = new javax.swing.JTextField();
         jTextEmail = new javax.swing.JTextField();
-        jTextPais = new javax.swing.JTextField();
         jTexTituj = new javax.swing.JTextField();
         jPassworContra = new javax.swing.JPasswordField();
+        jComboPais = new javax.swing.JComboBox<>();
+        modi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,10 +120,10 @@ public class Registro_Gerente extends javax.swing.JFrame {
         });
 
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("NOMBRES:");
+        jLabel1.setText("NOMBRE:");
 
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("APELLIDOS:");
+        jLabel2.setText("APELLIDO:");
 
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("CEDULA:");
@@ -103,7 +153,7 @@ public class Registro_Gerente extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombres", "Apellidos", "Cedula", "Direccion", "Correo", "Tittulo", "Gerencia"
+                "Nombre", "Apellido", "Cedula", "Pais", "Correo", "Titulo", "Gerencia"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -117,18 +167,6 @@ public class Registro_Gerente extends javax.swing.JFrame {
             }
         });
 
-        modif.setBackground(new java.awt.Color(0, 204, 204));
-        modif.setText("Modificar");
-        modif.setAutoscrolls(true);
-
-        elim.setBackground(new java.awt.Color(0, 204, 204));
-        elim.setText("Eliminar");
-        elim.setAutoscrolls(true);
-
-        busc.setBackground(new java.awt.Color(0, 204, 204));
-        busc.setText("Buscar");
-        busc.setAutoscrolls(true);
-
         Sla.setBackground(new java.awt.Color(0, 204, 204));
         Sla.setText("Salir");
         Sla.setAutoscrolls(true);
@@ -137,6 +175,19 @@ public class Registro_Gerente extends javax.swing.JFrame {
                 SlaActionPerformed(evt);
             }
         });
+
+        elim.setBackground(new java.awt.Color(0, 204, 204));
+        elim.setText("Eliminar");
+        elim.setAutoscrolls(true);
+        elim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elimActionPerformed(evt);
+            }
+        });
+
+        busc.setBackground(new java.awt.Color(0, 204, 204));
+        busc.setText("Buscar");
+        busc.setAutoscrolls(true);
 
         jTextNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,12 +223,6 @@ public class Registro_Gerente extends javax.swing.JFrame {
             }
         });
 
-        jTextPais.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextPaisKeyTyped(evt);
-            }
-        });
-
         jTexTituj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTexTitujActionPerformed(evt);
@@ -194,6 +239,12 @@ public class Registro_Gerente extends javax.swing.JFrame {
                 jPassworContraKeyTyped(evt);
             }
         });
+
+        jComboPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ecuador", "Colombia ", "Peru", "Argentina", "EEUU", "Mexico" }));
+
+        modi.setBackground(new java.awt.Color(0, 204, 204));
+        modi.setText("Modificar");
+        modi.setAutoscrolls(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -212,10 +263,13 @@ public class Registro_Gerente extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextCed, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextPais, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextCed, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(13, 13, 13)
+                                        .addComponent(jComboPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -245,33 +299,31 @@ public class Registro_Gerente extends javax.swing.JFrame {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jTexTituj, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(51, 51, 51)))
-                                .addGap(28, 28, 28)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(modif, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                            .addComponent(elim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(Sla, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(28, 28, 28))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Guar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(busc, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(93, 93, 93)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(Guar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(elim, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(modi, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(busc, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(Sla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Guar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(busc, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(busc, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -297,16 +349,15 @@ public class Registro_Gerente extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel8)
                             .addComponent(Geren, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Sla, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                            .addComponent(modif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(modi, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Sla, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(elim, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -320,7 +371,10 @@ public class Registro_Gerente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -332,6 +386,50 @@ public class Registro_Gerente extends javax.swing.JFrame {
 
     private void GuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuarActionPerformed
         // TODO add your handling code here:
+                
+            String Cedula = jTextCed.getText();
+            String Nombre = jTextNom.getText();
+            String Apellido = jTextApell.getText();            
+            String pais = jComboPais.getSelectedItem().toString();
+            String Correo = jTextEmail.getText();
+            String Contra= Arrays.toString(jPassworContra.getPassword());
+            String Titulo = jTexTituj.getText();
+            String Gerente = Geren.getSelectedItem().toString();
+            Tabla();
+        
+        ObjectSet consultaCedulaEst = AcademiaWeb.Base.get(new Estudiante(null, null, Cedula, null, null, null, null ,null));
+        ObjectSet consultaCedulaPro = AcademiaWeb.Base.get(new Profesor(null, null, null, null, null, 0, Cedula, null, null, null, null, null));
+        ObjectSet consultaCedulaGer = AcademiaWeb.Base.get(new Gerente(null, null, null, null, 0, Cedula, null, null, null, null, null));
+        
+        if (!(consultaCedulaEst.isEmpty() && consultaCedulaPro.isEmpty() && consultaCedulaGer.isEmpty())) {
+            messageError.add("YA EXISTE LA CEDULA");
+            error = true;
+        }
+ 
+        
+        ObjectSet consultaPais = AcademiaWeb.Base.get(new Pais(pais, null, 0, 0));
+            
+        if (!(consultaPais.isEmpty())) {
+            messageError.add("NO EXISTE ESE PAIS");
+            error = true;
+        }
+        
+        if (!(Correo.matches("[a-zA-Z0-9]{10,80}"))) {
+            messageError.add("CORREO NO VALIDO");
+            error = true;
+        }
+        
+            
+        
+        if (error) {
+            JOptionPane.showMessageDialog(null, messageError.get(0));
+            
+        } else {
+            AcademiaWeb.Base.set(new Gerente(Cedula,Nombre,Apellido,pais,Correo,Contra,Titulo,Gerente));
+            setDatos();
+          }
+        
+
 
 
     }//GEN-LAST:event_GuarActionPerformed
@@ -343,14 +441,13 @@ public class Registro_Gerente extends javax.swing.JFrame {
     private void jTextNomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomKeyTyped
         // TODO add your handling code here:
         char aux = evt.getKeyChar();
-        char aux1 = evt.getKeyChar();
+        
         boolean Mayus = aux >= 65 && aux < 90;
-        boolean minus = aux1 >= 97 && aux1 < 122;
-        if (Mayus == false) {
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
-            evt.consume();
-        } else if (minus == false) {
-            JOptionPane.showMessageDialog(null, "Esta Digitando" + evt.getKeyChar());
+        boolean minus = aux >= 97 && aux < 122;
+        boolean ret =aux == 8;
+        boolean ent = aux == 13; 
+        if (Mayus == false && minus== false && ret==false && ent== false) {
+            JOptionPane.showMessageDialog(null, "El dato:\n " + "-> "+evt.getKeyChar()+"<-\n"+"No esta Permitido");
             evt.consume();
         } else if (jTextNom.getText().length() >= 20) {
             evt.consume();
@@ -367,14 +464,12 @@ public class Registro_Gerente extends javax.swing.JFrame {
         char aux1 = evt.getKeyChar();
         boolean Mayus = aux >= 65 && aux < 90;
         boolean minus = aux1 >= 97 && aux1 < 122;
-        if (Mayus == false) {
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
-            evt.consume();
-        } else if (minus == false) {
-            JOptionPane.showMessageDialog(null, "Esta Digitando" + evt.getKeyChar());
-            evt.consume();
-            evt.consume();
-        } else if (jTextApell.getText().length() >= 20) {
+        boolean ret =aux == 8;
+        boolean ent = aux == 13; 
+        if (Mayus == false&& minus ==false && ret== false && ent== false) {
+           JOptionPane.showMessageDialog(null, "El dato:\n " + "-> "+evt.getKeyChar()+"<-\n"+"No esta Permitido");
+            evt.consume();}
+         else if (jTextApell.getText().length() >= 20) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextApellKeyTyped
@@ -384,36 +479,18 @@ public class Registro_Gerente extends javax.swing.JFrame {
         char aux = evt.getKeyChar();
         char espa = evt.getKeyChar();
         char aux1 = evt.getKeyChar();
-        boolean ced = aux >= 48 && aux < 57;
+        boolean ced = aux >= 48 && aux < 58;
         boolean esa = espa == 32;
+        boolean ret =aux == 8;
+        boolean ent = aux == 13; 
 
-        if (ced == false) {
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
-            evt.consume();
-        } else if (esa == false) {
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
+        if (ced == false&& esa == false && ret== false && ent== false ) {
+            JOptionPane.showMessageDialog(null, "El dato:\n " + "-> "+evt.getKeyChar()+"<-\n"+"No esta Permitido");
             evt.consume();
         } else if (jTextCed.getText().length() > 10) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextCedKeyTyped
-
-    private void jTextPaisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPaisKeyTyped
-        // TODO add your handling code here:
-        char aux = evt.getKeyChar();
-        boolean pais = aux >= 65 && aux < 90;
-        boolean pais2 = aux >= 97 && aux < 122;
-
-        if (pais == false) {
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
-            evt.consume();
-        } else if (pais2 == false) {
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
-            evt.consume();
-        } else if (jTextPais.getText().length() > 15) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTextPaisKeyTyped
 
     private void jTextEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextEmailKeyTyped
         // TODO add your handling code here:
@@ -421,16 +498,12 @@ public class Registro_Gerente extends javax.swing.JFrame {
         boolean cor = aux >= 64 && aux < 90;
         boolean cor2 = aux >= 97 && aux < 122;
         boolean car = aux == 65;
-        if (cor == false) {
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
+        boolean ret =aux == 8;
+        boolean ent = aux == 13; 
+        if (cor == false&& cor2== false && car == false && ret == false && ent== false) {
+            JOptionPane.showMessageDialog(null, "El dato:\n " + "-> "+evt.getKeyChar()+"<-\n"+"No esta Permitido");
             evt.consume();
-        } else if (cor2 == false) {
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
-            evt.consume();
-        } else if (car == false) {
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
-            evt.consume();
-        } else if (jTextEmail.getText().length() < 20) {
+        } else if (jTextEmail.getText().length() > 20) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextEmailKeyTyped
@@ -443,27 +516,29 @@ public class Registro_Gerente extends javax.swing.JFrame {
     private void jTexTitujKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTexTitujKeyTyped
         // TODO add your handling code here:
         char aux = evt.getKeyChar();
+        boolean ret =aux == 8 && aux == 13;
         boolean Tit = aux >= 64 && aux < 90;
         boolean tit = aux >= 97 && aux < 122;
-        if (jTexTituj.getText().length() < 20) {
+        boolean ent = aux == 13; 
+        if (jTexTituj.getText().length() > 20) {
             evt.consume();
-        } else if (Tit == false) {
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
+        } else if (Tit == false && tit == false && ret == false && ent== false) {
+            JOptionPane.showMessageDialog(null, "El dato:\n " + "-> "+evt.getKeyChar()+"<-\n"+"No esta Permitido");
             evt.consume();
-        } else if (tit == false);
-        JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
-        evt.consume();
+        } 
     }//GEN-LAST:event_jTexTitujKeyTyped
 
     private void jPassworContraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPassworContraKeyTyped
         // TODO add your handling code here:
         char aux = evt.getKeyChar();
         boolean con= aux >= 32&& aux< 126;
-        if(jPassworContra.getText().length()< 25){
+        boolean ret =aux == 127;
+        boolean ent = aux == 10; 
+        if(jPassworContra.getText().length()> 25 && ent== false){
             evt.consume();
         }      
-        else if (con== false){
-            JOptionPane.showMessageDialog(null, "Esta digitando" + evt.getKeyChar());
+        else if (con== false && ret == false ){
+            JOptionPane.showMessageDialog(null, "El dato:\n " + "-> "+evt.getKeyChar()+"<-\n"+"No esta Permitido");
             evt.consume();
         }
     }//GEN-LAST:event_jPassworContraKeyTyped
@@ -472,9 +547,20 @@ public class Registro_Gerente extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
         Principal pri=new Principal();
-        pri.setVisible(rootPaneCheckingEnabled);
+        pri.setVisible(true);
     }//GEN-LAST:event_SlaActionPerformed
 
+    private void elimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elimActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_elimActionPerformed
+
+    public  void Tabla(){
+        while(regGe.getRowCount()>0){
+            regGe.removeRow(0);
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -516,6 +602,7 @@ public class Registro_Gerente extends javax.swing.JFrame {
     private javax.swing.JButton Sla;
     private javax.swing.JButton busc;
     private javax.swing.JButton elim;
+    private javax.swing.JComboBox<String> jComboPais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -534,7 +621,6 @@ public class Registro_Gerente extends javax.swing.JFrame {
     private javax.swing.JTextField jTextEmail;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextNom;
-    private javax.swing.JTextField jTextPais;
-    private javax.swing.JButton modif;
+    private javax.swing.JButton modi;
     // End of variables declaration//GEN-END:variables
 }

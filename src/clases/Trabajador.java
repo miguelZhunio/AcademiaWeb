@@ -4,7 +4,8 @@ package clases;
  *
  * @author Zhunio Miguel
  */
-public class Trabajador extends Persona{
+public class Trabajador extends Persona {
+
     private String id_trabajador;
     private String titulo_tra;
     private String fecha_tra;
@@ -28,6 +29,7 @@ public class Trabajador extends Persona{
         this.fecha_tra = fecha_tra;
         this.sueldo_tra = sueldo_tra;
     }
+
     /**
      * @return the id_trabajador
      */
@@ -84,7 +86,9 @@ public class Trabajador extends Persona{
         this.sueldo_tra = sueldo_tra;
     }
 
- 
-    
-    
+    @Override
+    public String toString() {
+        return "Trabajador{" + "id_trabajador=" + id_trabajador + ", titulo_tra=" + titulo_tra + ", fecha_tra=" + fecha_tra + ", sueldo_tra=" + sueldo_tra + '}';
+    }
+
 }

@@ -20,6 +20,18 @@ public class Gerente extends Trabajador{
         super(id_trabajador, titulo_tra, fecha_tra, sueldo_tra, cedula_per, nombre_per, apellido_per, codigo_pais, correo_per, password_per);
         this.tipo = tipo;
     }
+
+    public Gerente() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Gerente(String Cedula, String Nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Gerente(String Cedula, String Nombre, String Apellido, String pais, String Correo, String Contra, String Titulo, String Gerente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * @return the tipo
@@ -33,6 +45,18 @@ public class Gerente extends Trabajador{
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public void getPassword_per(char[] password) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void getTitulo_tra(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void getTipo(String toString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
