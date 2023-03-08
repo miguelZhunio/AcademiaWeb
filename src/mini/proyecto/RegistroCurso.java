@@ -5,8 +5,14 @@
  */
 package mini.proyecto;
 
+import clases.Certifica;
+import clases.Curso;
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static mini.proyecto.Certificado.Cerrar_BD;
 
 /**
  *
@@ -14,21 +20,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RegistroCurso extends javax.swing.JFrame {
 
-    DefaultTableModel modelo;
+    private String cod_cur;
+    private String nombre_cur;
+    private String duracion;
+    private double precio;
+    private String silabo;
+    private String deescripcion;
+    private String id_pro;
+    private String cod_car;;
     
     
     public RegistroCurso() {
         initComponents();
         
-        modelo = new DefaultTableModel();
-        modelo.addColumn("Codigo curso");
-        modelo.addColumn("Nombre curso");
-        modelo.addColumn("Duracion");
-        modelo.addColumn("Precio");
-        modelo.addColumn("Codigo carrera");
-        modelo.addColumn("ID Profesor");
-        modelo.addColumn("Silabo");
-        modelo.addColumn("Profesion");
+        
         
     }
 
@@ -194,6 +199,11 @@ public class RegistroCurso extends javax.swing.JFrame {
         jPanel1.add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 360, -1, -1));
 
         Consultar.setText("Consular");
+        Consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultarActionPerformed(evt);
+            }
+        });
         jPanel1.add(Consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 360, -1, -1));
         jPanel1.add(txtfila, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 330, 50, -1));
 
@@ -294,48 +304,22 @@ char aux = evt.getKeyChar();
     }//GEN-LAST:event_txtidpKeyTyped
 
     private void InsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarActionPerformed
+ ObjectContainer BaseD = Db4o.openFile("E:\\Proyecto final Base de datos\\Mini-Proyecto\\MiniProyecto");
+        Crear_Curso(BaseD);
+        Cerrar_BD(BaseD)        
         
-        String []info = new String[8];
-        info[0]=txtcodigo.getText();
-        info[1]=txtnombre.getText();
-        info[2]=txtduracion.getText();
-        info[3]=txtprecio.getText();
-        info[4]=txtcc.getText();
-        info[5]=txtidp.getText();
-        info[6]=txtsilabo.getText();
-        info[7]=txtdescripcion.getText();
-        modelo.addRow(info);
-        
-        txtcodigo.setText("");
-        txtnombre.setText("");
-        txtduracion.setText("");
-        txtprecio.setText("");
-        txtcc.setText("");
-        txtidp.setText("");
-        txtsilabo.setText("");
-        txtdescripcion.setText("");     
     }//GEN-LAST:event_InsertarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        int fila = tabla.getSelectedRow();
-        if(fila>=0){
-            modelo.removeRow(fila);
-        }else{
-            JOptionPane.showMessageDialog(null, "SELECCIONE FILA");
-        }
+   
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void EliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTodoActionPerformed
-        int fila = tabla.getRowCount();
-        for (int i=fila-1; i>=0; i--){
-            modelo.removeRow(i);
-        }               
+                
     }//GEN-LAST:event_EliminarTodoActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        int fila = Integer.parseInt(txtfila.getText());
-        int columna=Integer.parseInt(txtcolumna.getText());
-        modelo.setValueAt(txtnd.getText(),fila,columna); 
+      
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -355,9 +339,56 @@ char aux = evt.getKeyChar();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ConsultarActionPerformed
+       public void Crear_Curso(ObjectContainer basep) {
+        asignarVariables(basep);
+       
+            if (Comprobar_Curso(basep, cod_cur) == 0) {
+                Curso ncurso= new Curso(cod_cur, nombre_cur, duracion,  precio,silabo,deescripcion,id_pro,cod_car);
+                basep.set(ncurso);
+                JOptionPane.showMessageDialog(null, "Curso registrado correctamente");
+                LimpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "El curso ya existe", "ERROR", 0);
+//                JOptionPane.showMessageDialog(this, "La asignatura ya existe");
+            }
+        
+    }
+       public static int Comprobar_Curso(ObjectContainer basep, String cod_cer) {
+        Curso bcurso = new Curso(cod_cur, null, null,null,null,null.null.null);
+        ObjectSet result = basep.get(bcurso);
+        return result.size();
+    }
+     public void asignarVariables(ObjectContainer basep) {
+        cod_cur = txtcodigo.getText();
+        nombre_cur = txtnombre.getText();
+        duracion = txtduracion.getText();
+        //precio = txtprecio.getDouble();
+        silabo = txtsilabo.getText();
+        deescripcion = txtdescripcion.getText();
+        id_pro = txtidp.getText();
+        cod_car = txtcc.getText();
+    }
+    
+    
+    public void LimpiarCampos() {
+        txtcodigo.setText("");
+        txtnombre.setText("");
+        txtduracion.setText("");
+        txtsilabo.setText("");
+        txtdescripcion.setText("");
+        txtidp.setText("");
+        txtcc.setText("");
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////Eliminar
+   
+    
+    public static void Cerrar_BD(ObjectContainer basep) {
+        basep.close();
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Consultar;

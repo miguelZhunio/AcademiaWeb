@@ -25,6 +25,8 @@ public class Certifica {
         this.mensaje = mensaje;
     }
 
+   
+
     /**
      * @return the cod_cer
      */
