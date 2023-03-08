@@ -223,7 +223,6 @@ public class Certificado extends javax.swing.JFrame {
         ObjectContainer BaseD = Db4o.openFile("E:\\Proyecto final Base de datos\\Mini-Proyecto\\MiniProyecto");
         
         Cerrar_BD(BaseD);
-
         //////////////////////////////////////////////////////////////////////////////Crear
     }//GEN-LAST:event_EliminarActionPerformed
 
