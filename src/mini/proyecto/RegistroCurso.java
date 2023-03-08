@@ -74,6 +74,8 @@ public class RegistroCurso extends javax.swing.JFrame {
         txtcolumna = new javax.swing.JTextField();
         txtnd = new javax.swing.JTextField();
         txtconsultar = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -218,6 +220,22 @@ public class RegistroCurso extends javax.swing.JFrame {
         jPanel1.add(txtnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 390, 120, -1));
         jPanel1.add(txtconsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 120, -1));
 
+        jButton1.setText("Atras");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jButton2.setText("Menu Principal");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -320,6 +338,23 @@ char aux = evt.getKeyChar();
         modelo.setValueAt(txtnd.getText(),fila,columna); 
     }//GEN-LAST:event_ModificarActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        MiniProyecto regresar = new MiniProyecto();
+        regresar.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Interfaz_curso regresar = new Interfaz_curso();
+        regresar.setVisible(true);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -330,6 +365,8 @@ char aux = evt.getKeyChar();
     private javax.swing.JButton EliminarTodo;
     private javax.swing.JButton Insertar;
     private javax.swing.JButton Modificar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
